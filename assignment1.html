@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+	<head>
+	<style>
+	
+	h3 {
+	text-align:center;
+	}
+	
+	#recipe1 {
+	border-radius:15px;
+	background-color: #E01A3A;
+	float: left;
+	text-align: center;
+	margin:auto;
+	width:48%; 
+	height: 280px;
+	border: 2px solid black;
+	}
+	
+	#recipe2 {
+	border-radius:15px;
+	background-color: #E01A3A;
+	float: left;
+	text-align: center;
+	margin-left: 40px;
+	width:48%; 
+	height: 280px;
+	border: 2px solid black;
+	}
+	
+	</style>
+	<title></title>
+	</head>
+	<body>	
+		<div id="cakeHook" ></div>
+		<script>
+			(function(bk) {
+				
+				var ingredients = [];
+			
+				//Object definitions
+				bk.Product = function(name, ingredients) {
+					this.name = name;
+					this.ingredients = ingredients;
+					
+					this.render = function(elementToAttachTo) {
+						var productDiv = document.createElement("div");
+						var productButton = document.createElement("button");
+						productDiv.appendChild(productButton);
+						
+						productButton.innerHTML = this.name + "\n";						
+						productButton.setAttribute("class","prod");
+						
+						if (this.name=="Chocolate Cake") {
+						productDiv.setAttribute("id", "recipe1");
+						} else {
+						productDiv.setAttribute("id", "recipe2");
+						}
+						
+						for (var i = 0; i < this.ingredients.length; i++) { 
+							productDiv.innerHTML += "\n<p>" + this.ingredients[i].measurement + " " + this.ingredients[i].name + "</p>";
+						}
+						
+						elementToAttachTo.appendChild(productDiv);
+					}
+					
+				}
+					
+				bk.Ingredient = function(name, measurement, cost){
+					this.name = name;
+					this.measurement = measurement;
+					this.cost = cost;
+				}
+				
+				var ingredient1 = new bk.Ingredient("cups of Flour", 1.75, 1);
+				var ingredient2 = new bk.Ingredient("cups of Sugar", 2, 0.5);
+				var ingredient3 = new bk.Ingredient("Eggs", 2, 0.2);
+				var ingredient4 = new bk.Ingredient("tsp Baking Powder", 1.5, 1);
+				var ingredient5 = new bk.Ingredient("tsp of Baking Soda", 1.75, 1);
+				var ingredient6 = new bk.Ingredient("cups of Chocolate Powder", 0.75, 2);
+				var ingredient7 = new bk.Ingredient("cup Butter", 0.5, 4);
+				var ingredient8 = new bk.Ingredient("cups of Flour", 1.5, 1);
+				var ingredient9 = new bk.Ingredient("tsp Baking Powder", 0.5, 1);
+				var ingredient10 = new bk.Ingredient("Eggs", 1, 0.2);
+				var ingredient11 = new bk.Ingredient("cup of Chocolate Chips", 1, 2.5);
+				
+				ingredients.push(ingredient1);
+				ingredients.push(ingredient2);
+				ingredients.push(ingredient3);
+				ingredients.push(ingredient4);
+				ingredients.push(ingredient5);
+				ingredients.push(ingredient6);
+				ingredients.push(ingredient7);
+				ingredients.push(ingredient8);
+				ingredients.push(ingredient9);
+				ingredients.push(ingredient10);
+				ingredients.push(ingredient11);
+				
+				var products = [];
+				var product1 = new bk.Product("Chocolate Cake", [ingredients[0], ingredients[1], ingredients[2], ingredients[3], ingredients[4], ingredients[5]]);
+				var product2 = new bk.Product("Cookies", [ingredients[6], ingredients[7], ingredients[8], ingredients[9], ingredients[10]]);
+				
+				products.push(product1);
+				products.push(product2);
+				
+			
+			var myCakeHookDiv = document.getElementById("cakeHook");
+			
+			var companyNamep = document.createElement("p");
+			companyNamep.innerHTML = "<h1 align=\"center\" >CAKE BABY</h1>\n";
+			myCakeHookDiv.appendChild(companyNamep);
+					
+			products[0].render(myCakeHookDiv);
+			products[1].render(myCakeHookDiv);
+			
+			var sum1 = 0;
+			var sum2 = 0;
+			
+			for (var i = 0; i < products[0].ingredients.length; i++) {
+				sum1 += ((products[0].ingredients[i].measurement)*(products[0].ingredients[i].cost));
+				}
+				
+			for (var j = 0; j < products[1].ingredients.length; j++) {
+				sum2 += ((products[1].ingredients[j].measurement)*(products[1].ingredients[j].cost));
+				}	
+
+			var sumTotal = 0;
+			
+			var totalCostP = document.createElement("p");
+			var totalCostH3 = document.createElement("h3");
+			totalCostP.appendChild(totalCostH3);
+			totalCostH3.innerHTML = "TOTAL COST: $" + sumTotal;
+			myCakeHookDiv.appendChild(totalCostP);
+			
+			var myProducts = document.getElementsByClassName("prod");	
+			
+			myProducts[0].onclick = function (){
+				sumTotal += sum1;
+				totalCostH3.innerHTML = "TOTAL COST: $" + sumTotal.toFixed(2);
+			}
+			myProducts[1].onclick = function (){
+				sumTotal += sum2;
+				totalCostH3.innerHTML = "TOTAL COST: $" + sumTotal.toFixed(2);
+			}			
+			
+		})(window.bk = window.bk || {});
+		</script>	
+	</body>
+</html>
